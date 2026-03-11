@@ -1,4 +1,4 @@
-%[text] # Run samples of the ServiceQueue simulation
+%[text] # Run samples of the ServiceQueue simulation Aylene
 %[text] Collect statistics and plot histograms along the way.
 %%
 %[text] ## Set up
@@ -34,17 +34,17 @@ rng("default");
 %[text] We'll store our queue simulation objects in this list.
 QSamples = cell([NumSamples, 1]);
 %[text] The statistics come out weird if the log interval is too short, because the log entries are not independent enough.  So the log interval should be long enough for several arrival and departure events happen.
-for SampleNum = 1:NumSamples
-    fprintf("Working on sample %d\n", SampleNum);
-    q = ServiceQueue( ...
-        ArrivalRate=lambda, ...
-        DepartureRate=mu, ...
-        NumServers=s, ...
-        LogInterval=LogInterval);
+for SampleNum = 1:NumSamples %[output:group:5fb85706]
+    fprintf("Working on sample %d\n", SampleNum); %[output:280b0e2d]
+    q = ServiceQueue( ... %[output:98efa2b1]
+        ArrivalRate=lambda, ... %[output:98efa2b1]
+        DepartureRate=mu, ... %[output:98efa2b1]
+        NumServers=s, ... %[output:98efa2b1]
+        LogInterval=LogInterval); %[output:98efa2b1]
     q.schedule_event(Arrival(random(q.InterArrivalDist), Customer(1)));
     run_until(q, MaxTime);
     QSamples{SampleNum} = q;
-end
+end %[output:group:5fb85706]
 %%
 %[text] ## Collect measurements of how many customers are in the system
 %[text] Count how many customers are in the system at each log entry for each sample run.  There are two ways to do this.  You only have to do one of them.
@@ -156,8 +156,15 @@ xlim(ax, [0, 2.0]);
 pause(2);
 %[text] Save the picture as a PDF file.
 exportgraphics(fig, "Time in system histogram.pdf");
+
 %[appendix]{"version":"1.0"}
 %---
 %[metadata:view]
 %   data: {"layout":"inline"}
+%---
+%[output:280b0e2d]
+%   data: {"dataType":"text","outputData":{"text":"Working on sample 1\n","truncated":false}}
+%---
+%[output:98efa2b1]
+%   data: {"dataType":"error","outputData":{"errorType":"runtime","text":"Unrecognized function or variable 'ServiceQueue'."}}
 %---
