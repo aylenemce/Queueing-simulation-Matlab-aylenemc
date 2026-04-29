@@ -37,11 +37,25 @@ classdef Customer < handle
                 ArrivalTime = Inf;
                 BeginServiceTime = Inf;
                 DepartureTime = Inf;
+              
+
             end
             obj.Id = Id;
             obj.ArrivalTime = ArrivalTime;
             obj.BeginServiceTime = BeginServiceTime;
             obj.DepartureTime = DepartureTime;
         end
+    function handle_renege(obj, event)
+    for i = 1:length(obj.Waiting)
+        if obj.Waiting{i}.Id == event.CustomerId
+            % Still waiting → valid reneging
+            reneging_customer = obj.Waiting{i};
+            obj.Reneged{end+1} = reneging_customer;
+            obj.Waiting(i) = [];
+            return;
+        end
+    end
+    % If not found → ignore (already in service or gone)
+end
     end
 end
